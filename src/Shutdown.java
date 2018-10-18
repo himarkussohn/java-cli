@@ -1,11 +1,15 @@
 import java.io.IOException;
+import java.util.logging.Logger;
 
 /**
  * Shutdown
  */
 public class Shutdown {
 
-    private static final String SHUTDOWN_NOW = "shutdown -s -t 0";
+    private static final String SHUTDOWN_NOW_WINDOWS = "shutdown -s -t 0";
+    private static final String SHUTDOWN_NOW_LINUX = "shutdown -s -t 0";
+
+    private static final Logger LOG = Logger.getGlobal();
 
     private static Shutdown instance;
 
@@ -20,13 +24,17 @@ public class Shutdown {
     }
 
     public static void main(String[] args) {
-        Shutdown.getInstance().run();
+        Shutdown.getInstance().run(System.getProperty("os.name"));
     }
 
-    public void run() {
+    public void run(String operatingSystem) {
         Runtime runtime = Runtime.getRuntime();
+        LOG.info(operatingSystem + " found.");
+        String shutdownCommand = operatingSystem.equals("Windows") ? SHUTDOWN_NOW_WINDOWS : SHUTDOWN_NOW_LINUX;
         try {
-            runtime.exec(SHUTDOWN_NOW);
+            LOG.info("Executing " + shutdownCommand + " after any key press...");
+            System.in.read();
+            runtime.exec(shutdownCommand);
         } catch (IOException e) {
             System.out.println("IO error");
         }
