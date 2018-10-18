@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Restart {
 
     private static final String RESTART_NOW_WINDOWS = "shutdown -r -t 0";
-    private static final String RESTART_NOW_LINUX = "shutdown -r -t 0";
+    private static final String RESTART_NOW_LINUX = "shutdown -r now";
 
     private static final Logger LOG = Logger.getGlobal();
 
@@ -29,6 +29,7 @@ public class Restart {
 
     public void run(String operatingSystem) {
         Runtime runtime = Runtime.getRuntime();
+        LOG.log(Level.INFO, operatingSystem + " found.");
         String restartCommand = operatingSystem.equals("Windows") ? RESTART_NOW_WINDOWS : RESTART_NOW_LINUX;
         try {
             LOG.log(Level.INFO, "Executing " + restartCommand + " after any key press...");

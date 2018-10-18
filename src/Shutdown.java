@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 public class Shutdown {
 
     private static final String SHUTDOWN_NOW_WINDOWS = "shutdown -s -t 0";
-    private static final String SHUTDOWN_NOW_LINUX = "shutdown -s -t 0";
+    private static final String SHUTDOWN_NOW_LINUX = "shutdown -h now";
 
     private static final Logger LOG = Logger.getGlobal();
 
