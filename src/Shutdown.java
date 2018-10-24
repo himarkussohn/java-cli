@@ -30,7 +30,7 @@ public class Shutdown {
     public void run(String operatingSystem) {
         Runtime runtime = Runtime.getRuntime();
         LOG.info(operatingSystem + " found.");
-        String shutdownCommand = operatingSystem.equals("Windows") ? SHUTDOWN_NOW_WINDOWS : SHUTDOWN_NOW_LINUX;
+        String shutdownCommand = operatingSystem.contains("Windows") ? SHUTDOWN_NOW_WINDOWS : SHUTDOWN_NOW_LINUX;
         try {
             LOG.info("Executing " + shutdownCommand + " after any key press...");
             System.in.read();
